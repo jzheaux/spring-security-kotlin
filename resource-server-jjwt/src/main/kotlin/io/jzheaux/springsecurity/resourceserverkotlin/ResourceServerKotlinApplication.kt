@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder
 import org.springframework.web.bind.annotation.GetMapping
@@ -28,8 +29,8 @@ class ResourceServerKotlinApplication {
 @RestController
 class ResourceServerController {
 	@GetMapping("/")
-	fun index(): String {
-		return "index"
+	fun index(@AuthenticationPrincipal jwt : Jwt): String {
+		return "Hello, " + jwt.subject + "!";
 	}
 }
 
